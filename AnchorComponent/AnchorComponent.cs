@@ -26,8 +26,8 @@ namespace Waiting.Component
         public bool isUserLossyScale = false;
 
         /// <summary>
-        /// 是否使用Handler标准尺寸
+        /// 是否使用Handles标准尺寸
         /// </summary>
-        public bool isUserHandlerSize = false;
+        public bool isUserHandlesSize = false;
     }
 }

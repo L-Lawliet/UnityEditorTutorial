@@ -18,6 +18,7 @@ namespace Waiting.Plugin.Anchor
     [CustomEditor(typeof(AnchorComponent))]
     public class AnchorComponentEditor : Editor
     {
+        
         void OnSceneGUI()
         {
             AnchorComponent compontent = target as AnchorComponent;
@@ -28,22 +29,22 @@ namespace Waiting.Plugin.Anchor
             //Handles.CubeCap(compontent.GetInstanceID(), compontent.transform.position, compontent.transform.rotation, 1.0f);
 
             //绘制线框正方体
-            DrawWireframeBox(compontent.transform, compontent.isUserLossyScale, compontent.isUserHandlerSize);
+            DrawWireframeBox(compontent.transform, compontent.isUserLossyScale, compontent.isUserHandlesSize);
         }
 
         /// <summary>
         /// 绘制线框正方体
         /// </summary>
         /// <param name="transform">描点Transform</param>
-        /// <param name="isUserLossyScale"></param>
-        /// <param name="isUserHandlerSize"></param>
-        public void DrawWireframeBox(Transform transform, bool isUserLossyScale = false, bool isUserHandlerSize = false)
+        /// <param name="isUserLossyScale">是否使用全局缩放</param>
+        /// <param name="isUserHandlesSize">是否使用Handles尺寸</param>
+        public void DrawWireframeBox(Transform transform, bool isUserLossyScale = false, bool isUserHandlesSize = false)
         {
             Matrix4x4 matrix = Handles.matrix;
 
             Vector3 size;
             
-            if (isUserHandlerSize)
+            if (isUserHandlesSize)
             {
                 float handleSize = HandleUtility.GetHandleSize(transform.position);
 
