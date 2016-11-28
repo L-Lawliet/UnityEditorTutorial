@@ -22,21 +22,35 @@ namespace Waiting.Plugin.Batching
         [MenuItem("Tools/BatchingLite")]
         public static void ShowWindow()
         {
+            //调用GetWindow创建一个面板
             EditorWindow.GetWindow<BatchingLiteWindow>("Batching");
         }
 
+        /// <summary>
+        /// 移动增量
+        /// </summary>
         private Vector3 _position = Vector3.zero;
 
+        /// <summary>
+        /// 旋转增量
+        /// </summary>
         private Vector3 _rotation = Vector3.zero;
 
+        /// <summary>
+        /// 缩放增量
+        /// </summary>
         private Vector3 _scale = Vector3.zero;
 
+        /// <summary>
+        /// 复制数量
+        /// </summary>
         private int _number = 0;
 
+        /// <summary>
+        /// 绘制UI
+        /// </summary>
         void OnGUI()
         {
-            EditorGUILayout.BeginVertical();
-
             _position = EditorGUILayout.Vector3Field("Position", _position);
 
             _rotation = EditorGUILayout.Vector3Field("Rotation", _rotation);
@@ -46,8 +60,6 @@ namespace Waiting.Plugin.Batching
             EditorGUILayout.Space();
 
             _number = Mathf.Max(EditorGUILayout.IntField("Number", _number), 0);
-
-            EditorGUILayout.EndVertical();
 
             EditorGUILayout.Space();
 
@@ -68,16 +80,9 @@ namespace Waiting.Plugin.Batching
             }
         }
 
-        void OnEnabled()
-        {
-            
-        }
-
-        void OnDisabled()
-        {
-            
-        }
-
+        /// <summary>
+        /// 生成复制对象
+        /// </summary>
         private void Generate()
         {
             GameObject[] selectGameObjects = Selection.gameObjects;
@@ -102,27 +107,19 @@ namespace Waiting.Plugin.Batching
 
                     go.transform.localScale = selectGameObject.transform.localScale + _scale * j;
 
+                    //添加Undo步骤
                     Undo.RegisterCreatedObjectUndo(go, "Batching Create GameObject");
                 }
             }
         }
 
+        /// <summary>
+        /// 取消步骤
+        /// </summary>
         private void Cancel()
         {
-            try
-            {
-                Undo.PerformUndo();
-            }
-            catch (Exception ex)
-            {
-                Debug.Log(ex);
-            }
+            Undo.PerformUndo();
         }
 
-
-        void OnDestroy()
-        {
-            
-        } 
     }
 }
