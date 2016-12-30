@@ -24,7 +24,9 @@ namespace Waiting.Plugin.Batching
         public static void ShowWindow()
         {
             //调用GetWindow创建一个面板
-            EditorWindow.GetWindow<BatchingMaxWindow>("BatchingMax");
+            var window = EditorWindow.GetWindow<BatchingMaxWindow>("BatchingMax");
+
+            window.minSize = new Vector2(300, 300);
         }
 
         /// <summary>
@@ -114,15 +116,23 @@ namespace Waiting.Plugin.Batching
 
             EditorGUILayout.BeginHorizontal();
 
+            float tempLabelWidth = EditorGUIUtility.labelWidth;
+
             EditorGUI.indentLevel++;
 
+            EditorGUIUtility.labelWidth = 28f;
+
             RandomField("X", value.x);
+
+            EditorGUI.indentLevel--;
+
+            EditorGUIUtility.labelWidth = 13f;
 
             RandomField("Y", value.x);
 
             RandomField("Z", value.x);
 
-            EditorGUI.indentLevel--;
+            EditorGUIUtility.labelWidth = tempLabelWidth;
 
             EditorGUILayout.EndHorizontal();
 
@@ -132,8 +142,6 @@ namespace Waiting.Plugin.Batching
         private Vector3 RandomField(string label, Vector3 value)
         {
             //GUIStyle style = new GUIStyle();
-
-            EditorGUIUtility.labelWidth = 13f;
 
             string str = String.Format("{0}, {1}, {2}", value.x, value.y, value.z);
 
