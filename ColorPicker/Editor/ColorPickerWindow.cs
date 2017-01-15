@@ -24,12 +24,24 @@ namespace Assets.ColorPicker.Editor
             EditorWindow.GetWindow<ColorPickerWindow>("ColorPicker");
         }
 
+        /// <summary>
+        /// 16进制颜色
+        /// </summary>
         private string _hexColor = "FFFFFFFF";
 
+        /// <summary>
+        /// 归一化颜色值
+        /// </summary>
         private string _normalColor = "1f, 1f, 1f, 1f";
 
+        /// <summary>
+        /// 32位颜色值显示
+        /// </summary>
         private string _color32 = "255, 255, 255, 255";
 
+        /// <summary>
+        /// unity颜色值
+        /// </summary>
         private Color _color = new Color(1, 1, 1, 1);
 
         void OnGUI()
@@ -49,21 +61,25 @@ namespace Assets.ColorPicker.Editor
                 UpdateColor();
 
                 this.Repaint();
-            }else if (tempNormalColor != _normalColor)
+            }
+            else if (tempNormalColor != _normalColor)
             {
                 _normalColor = tempNormalColor;
                 _color = NormalToColor(_normalColor);
                 UpdateColor();
 
                 this.Repaint();
-            }else if (tempColor32 != _color32)
+            }
+            else if (tempColor32 != _color32)
             {
                 _color32 = tempColor32;
                 _color = Color32ToColor(_color32);
                 UpdateColor();
 
                 this.Repaint();
-            }else if(tempColorValue != _color){
+            }
+            else if(tempColorValue != _color)
+            {
                 _color = tempColorValue;
                 UpdateColor();
 
@@ -71,6 +87,11 @@ namespace Assets.ColorPicker.Editor
             }
         }
 
+        /// <summary>
+        /// 16进制转Color类
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         private Color HexToColor(string value)
         {
             Color color;
@@ -89,6 +110,11 @@ namespace Assets.ColorPicker.Editor
             return color;
         }
 
+        /// <summary>
+        /// 归一化转Color
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         private Color NormalToColor(string value)
         {
             Color color = new Color();
@@ -123,6 +149,11 @@ namespace Assets.ColorPicker.Editor
             return color;
         }
 
+        /// <summary>
+        /// Color32转Color
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         private Color Color32ToColor(string value)
         {
             Color32 color = new Color32();
@@ -153,6 +184,10 @@ namespace Assets.ColorPicker.Editor
             return color;
         }
 
+        /// <summary>
+        /// 更新颜色值
+        /// 把color转成各种颜色表示方式
+        /// </summary>
         private void UpdateColor()
         {
             _hexColor = ColorUtility.ToHtmlStringRGBA(_color);
